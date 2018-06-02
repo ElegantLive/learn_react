@@ -97,11 +97,11 @@
         [
           {
             "libraryName": "antd-mobile",
-            "style": true
+            "style": "css"
           },
           {
             "libraryName": "antd",
-            "style": true
+            "style": "css"
           }
         ]
       ]
