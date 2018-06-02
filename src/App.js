@@ -22,8 +22,8 @@
 // export default App;
 
 import React from 'react';
-import {Button} from 'antd-mobile'
-// import 'antd-mobile/dist/antd-mobile.css'
+import {Button,List} from 'antd-mobile';
+import 'antd-mobile/dist/antd-mobile.css';
 
 class App extends React.Component {
     render() {
@@ -74,6 +74,17 @@ class Children extends React.Component {
             <div>
                 <h2>{this.props.boss}，牛逼！</h2>
                 <Button type='primary' onClick={()=>this.addSolder()}>加入直播间</Button>
+                <List
+                    renderHeader={()=>'主播们'}
+                >
+                    {this.state.solders.map(v=>{
+                        return (
+                            <List.Item key={v}>
+                                {v}
+                            </List.Item>
+                        )
+                    })}
+                </List>
                 <ul>
                     {this.state.solders.map(v => {
                         return <li key={v}>{v}</li>
