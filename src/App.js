@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, List} from 'antd-mobile';
+import {Button,List} from 'antd-mobile';
 import 'antd-mobile/dist/antd-mobile.css';
 
 class App extends React.Component {
