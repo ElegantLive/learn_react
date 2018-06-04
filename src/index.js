@@ -1,8 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import ReactDom from 'react-dom';
+import {createStore,applyMiddleware,compose} from 'redux';
+import thunk from 'redux-thunk';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { counter,add,unfollow,addAsync} from "./index.redux";
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+const reduxDectools = window.devToolsExtension;
+
+const store = createStore(counter,compose(
+    applyMiddleware(thunk),
+    reduxDectools?reduxDectools():f=>f
+));
+function render() {
+    ReactDom.render(<App store={store} add={add} unfollow={unfollow} addAsync={addAsync}/>,document.getElementById('root'));
+    console.log(store.getState())
+}
+
+render();
+
+store.subscribe(render);
