@@ -22,18 +22,18 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        console.log(this.props);
+        const match = this.props.match;
         const app = (
             <div>
-                {this.props.isAuth ? <button onClick={this.props.logout}>logout</button> : redirectToLogin}
+                {this.props.isAuth ? <button onClick={this.props.logout}>logout{this.props.user}</button> : null}
                 <ul>
-                    <li><Link to='/dashboard/'>卢本伟直播间</Link></li>
-                    <li><Link to='/dashboard/mafei'>马飞</Link></li>
-                    <li><Link to='/dashboard/lubenwei'>卢本伟</Link></li>
+                    <li><Link to={`${match.url}/`}>卢本伟直播间</Link></li>
+                    <li><Link to={`${match.url}/mafei`}>马飞</Link></li>
+                    <li><Link to={`${match.url}/lubenwei`}>卢本伟</Link></li>
                 </ul>
-                <Route path='/dashboard/' exact component={App}></Route>
-                <Route path='/dashboard/mafei' component={Mafei}></Route>
-                <Route path='/dashboard/lubenwei' component={Lubenwei}></Route>
+                <Route path={`${match.url}/`} exact component={App}></Route>
+                <Route path={`${match.url}/mafei`} component={Mafei}></Route>git
+                <Route path={`${match.url}/lubenwei`} component={Lubenwei}></Route>
             </div>
         );
         const redirectToLogin = <Redirect to='/login' />;
