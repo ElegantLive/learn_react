@@ -9,11 +9,14 @@ import {add, unfollow, addAsync} from "./index.redux";
 // const actionCreators = {add, unfollow, addAsync};
 // App = connect(mapStateToPross, actionCreators)(App);
 @connect(
-    state=>({num:state}),// 传输的state属性
+    state=>({num:state.counter}),// 传输的state属性
     {add, unfollow, addAsync}// 传输的方法
 )
 
 class App extends React.Component {
+    constructor(props){
+        super(props)
+    }
     render() {
         // const num = this.props.num;
         // const add = this.props.add;

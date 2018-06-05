@@ -10,7 +10,7 @@ export function counter
         case UNFOLLOW:
             return state - 1;
         default:
-            return 10;
+            return state;
     }
 }
 
