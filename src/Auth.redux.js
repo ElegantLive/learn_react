@@ -14,8 +14,10 @@ export function auth(state = {isAuth: false, user: '卢本伟'}, action) {
 }
 
 export function logout() {
+    localStorage.setItem('token',null);
     return {type:LOGOUT}
 }
 export function login() {
+    localStorage.setItem('token','1324');
     return {type:LOGIN}
 }

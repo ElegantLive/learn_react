@@ -32,7 +32,7 @@ class Dashboard extends React.Component {
                     <li><Link to={`${match.url}/lubenwei`}>卢本伟</Link></li>
                 </ul>
                 <Route path={`${match.url}/`} exact component={App}></Route>
-                <Route path={`${match.url}/mafei`} component={Mafei}></Route>git
+                <Route path={`${match.url}/mafei`} component={Mafei}></Route>
                 <Route path={`${match.url}/lubenwei`} component={Lubenwei}></Route>
             </div>
         );
