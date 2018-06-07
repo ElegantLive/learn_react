@@ -1,4 +1,4 @@
-function AsyncRequest(params) {
+function asyncRequest(params) {
     const ApiUrl = 'http://api.mi.com/v1/';
     let url = ApiUrl + params.url;
 
@@ -38,10 +38,11 @@ function AsyncRequest(params) {
     }
 
     fetch(request)
+        .then(_checkStatus)
         .then((response) => response.json())
         .then((responseData) => {
             console.log('res:', url, responseData);
-            if(responseData.error_code === '10003') {
+            if(responseData.error_code === 10003) {
                 console.log('请登陆！-跳转登陆页面');
             }
             // resolve(responseData);
@@ -52,4 +53,15 @@ function AsyncRequest(params) {
         })
 }
 
-export default AsyncRequest;
+function _checkStatus(response) {
+    // console.log(response);
+    if (response.status >= 200 && response.status < 300) {
+        return response;
+    } else {
+        let error = new Error(response.statusText);
+        error.response = response;
+        throw error;
+    }
+}
+
+export default asyncRequest;

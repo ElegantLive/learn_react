@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom'
 import {login} from './Auth.redux';
 // import axios from 'axios';
-import AsyncRequest from './Fetch';
+import asyncRequest from './Fetch';
 
 @connect(
     state => state.auth,
@@ -19,8 +19,9 @@ class Auth extends React.Component {
         //     console.log(res);
         // })
 
-        AsyncRequest({
+        asyncRequest({
             url: 'auth/admin',
+            type:'PUT',
             data: {
                 id: 5,
                 name : '123'
