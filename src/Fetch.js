@@ -1,9 +1,9 @@
 function asyncRequest(params) {
-    const ApiUrl = 'http://api.mi.com/v1/';
+    const ApiUrl = 'http://www.z.com/v1/';
     let url = ApiUrl + params.url;
 
     let headers_obj = {
-        'token': localStorage.getItem('token'),
+        'token': 'b5eeef19e66185be2d478930e09f130e',
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     };

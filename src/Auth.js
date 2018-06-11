@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom'
 import {login} from './Auth.redux';
-// import axios from 'axios';
-import asyncRequest from './Fetch';
+import axios from 'axios';
+// import asyncRequest from './Fetch';
 
 @connect(
     state => state.auth,
@@ -15,20 +15,16 @@ class Auth extends React.Component {
     }
 
     componentDidMount() {
-        // axios.get('/').then(res=>{
-        //     console.log(res);
-        // })
+        // asyncRequest({
+        //     url: 'user/get_list',
+        //     type:'GET',
+        // });
 
-        asyncRequest({
-            url: 'auth/admin',
-            type:'PUT',
-            data: {
-                id: 5,
-                name : '123'
-            }
-        });
-
-        fetch('http://api.mi.com/v1/auth/admin', {});
+        // fetch('http://api.mi.com/v1/auth/admin', {});
+        axios.get('/data')
+            .then(res=>{
+                console.log(res)
+            })
     }
 
     render() {
