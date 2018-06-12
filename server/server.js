@@ -57,7 +57,7 @@ const User = mongoose.model('user',new mongoose.Schema({
 const app = express();
 
 app.get('/data',function (req,res) {
-    User.find({},function (error,doc) {
+    User.findOne({user:'qucaixian'},function (error,doc) {
         res.json(doc);
     })
 });

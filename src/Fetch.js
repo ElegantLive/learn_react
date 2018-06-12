@@ -1,5 +1,5 @@
 function asyncRequest(params) {
-    const ApiUrl = 'http://www.z.com/v1/';
+    const ApiUrl = 'http://www.mi.com/v1/';
     let url = ApiUrl + params.url;
 
     let headers_obj = {
@@ -37,6 +37,7 @@ function asyncRequest(params) {
         })
     }
 
+    console.log(request);
     fetch(request)
         .then(_checkStatus)
         .then((response) => response.json())
@@ -54,7 +55,7 @@ function asyncRequest(params) {
 }
 
 function _checkStatus(response) {
-    // console.log(response);
+    console.log(response);
     if (response.status >= 200 && response.status < 300) {
         return response;
     } else {
