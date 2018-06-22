@@ -53,8 +53,18 @@ Router.post('/register', function (req, res) {
             return res.json({code: 1, msg: '注册出错', data: doc})
         }
         res.cookie('user_id', doc._id);
-        return res.json({code: 0})
+        return res.json({code: 0,data:doc})
     })
+
+    // const UserModel = new User({user, pwd: preparePwd(pwd), type});
+    //
+    // UserModel.save(function (e,d) {
+    //     if (e) {
+    //         return res.json({code: 1, msg: '注册出错', data: d})
+    //     }
+    //     res.cookie('user_id', d._id);
+    //     return res.json({code: 0})
+    // })
 });
 
 Router.post('/login', function (req, res) {

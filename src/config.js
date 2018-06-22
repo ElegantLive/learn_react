@@ -8,8 +8,6 @@ axios.default({
 ;
 
 axios.interceptors.request.use(function (config) {
-    console.log(config);
-
     config.data = JSON.stringify(config.data);
 
     config.headers['Content-Type'] = 'application/json';
