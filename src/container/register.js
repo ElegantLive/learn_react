@@ -41,7 +41,7 @@ class Register extends React.Component {
         const RadioItem = Radio.RadioItem;
         return (
             <div>
-                {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
+                {this.props.redirectTo ? <Redirect to={this.props.redirectTo}/> : null}
                 <Logo/>
                 <WingBlank>
                     <List>

@@ -51,7 +51,6 @@ class Login extends React.Component{
                     <WhiteSpace/>
                     <Button onClick={this.register} type='primary'>注册</Button>
                 </WingBlank>
-
             </div>
         )
     }
