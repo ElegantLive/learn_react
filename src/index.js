@@ -7,10 +7,11 @@ import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom';
 
 import Login from './container/login';
 import Register from './container/register';
+import BossInfo from './container/bossinfo';
 import AuthRoute from './component/authroute/authroute'
 import reducers from './reducer';
 import './config';
-import './index.css'
+import './index.css';
 
 const reduxDectools = window.devToolsExtension;
 
@@ -19,16 +20,12 @@ const store = createStore(reducers, compose(
     reduxDectools ? reduxDectools() : f => f
 ));
 
-function Boss() {
-    return <h2>Boss</h2>
-}
-
 ReactDom.render(
     (<Provider store={store}>
         <BrowserRouter>
             <div>
                 <AuthRoute/>
-                <Route path='/boss' component={Boss}/>
+                <Route path='/bossinfo' component={BossInfo}/>
                 <Route path='/login' component={Login}/>
                 <Route path='/register' component={Register}/>
             </div>
