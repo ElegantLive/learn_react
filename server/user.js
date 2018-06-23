@@ -53,7 +53,7 @@ Router.post('/register', function (req, res) {
             return res.json({code: 1, msg: '注册出错', data: doc})
         }
         res.cookie('user_id', doc._id);
-        return res.json({code: 0,data:doc})
+        return res.json({code: 0, data: doc})
     })
 
     // const UserModel = new User({user, pwd: preparePwd(pwd), type});
@@ -77,6 +77,26 @@ Router.post('/login', function (req, res) {
             return res.json({code: 1, msg: '用户名或密码不正确'})
         }
     });
+});
+
+Router.post('/update', function (req, res) {
+    const user_id = req.cookies.user_id;
+
+    if (!user_id) {
+        return res.json({code: 1});
+    }
+
+    User.findByIdAndUpdate(user_id, req.body, function (e, d) {
+        if (!e) {
+            const data = Object.assign({}, {
+                user: d.user,
+                type: d.type,
+                avatar:d.avatar
+            }, res.body);
+            return res.json({code: 0,data:data})
+        }
+        return res.json({code: 1, msg: '更新失败'})
+    })
 });
 
 function preparePwd(pwd) {
