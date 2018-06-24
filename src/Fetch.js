@@ -1,9 +1,9 @@
-function asyncRequest(params) {
-    const ApiUrl = 'http://www.mi.com/v1/';
+export function asyncRequest(params) {
+    const ApiUrl = 'http://localhost:9093/';
     let url = ApiUrl + params.url;
 
     let headers_obj = {
-        'token': 'b5eeef19e66185be2d478930e09f130e',
+        // 'token': 'b5eeef19e66185be2d478930e09f130e',
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     };
@@ -64,5 +64,3 @@ function _checkStatus(response) {
         throw error;
     }
 }
-
-export default asyncRequest;

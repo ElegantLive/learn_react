@@ -90,8 +90,7 @@ Router.post('/update', function (req, res) {
         if (!e) {
             const data = Object.assign({}, {
                 user: d.user,
-                type: d.type,
-                avatar:d.avatar
+                type: d.type
             }, res.body);
             return res.json({code: 0,data:data})
         }

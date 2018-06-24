@@ -10,15 +10,13 @@ import {update} from '../redux/user.redux';
     {update}
 )
 
-class BossInfo extends React.Component {
+class GeniusInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             title: '',
-            company: '',
-            money: '',
-            desc: '',
-            avatar: ''
+            avatar: '',
+            desc: ''
         };
         this.selectAvatar = this.selectAvatar.bind(this);
     }
@@ -45,21 +43,15 @@ class BossInfo extends React.Component {
                     mode="dark"
                     icon={<Icon type="left"/>}
                     onLeftClick={() => console.log('onLeftClick')}
-                >Boss完善信息页面</NavBar>
+                >牛人完善信息页面</NavBar>
                 <AvatarSelector
                     selectAvatar={this.selectAvatar}
                 />
                 <InputItem
                     onChange={(v) => this.onChange('title', v)}
-                >招聘职位</InputItem>
-                <InputItem
-                    onChange={(v) => this.onChange('company', v)}
-                >公司名称</InputItem>
-                <InputItem
-                    onChange={(v) => this.onChange('money', v)}
-                >薪资范围</InputItem>
+                >求职岗位</InputItem>
                 <TextareaItem
-                    title='职位要求'
+                    title='个人简介'
                     onChange={(v) => this.onChange('desc', v)}
                     placeholder='可换行'
                     autoHeight={true}
@@ -75,4 +67,4 @@ class BossInfo extends React.Component {
     }
 }
 
-export default BossInfo;
+export default GeniusInfo;
