@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavBar, Icon, InputItem, TextareaItem, Button} from 'antd-mobile';
+import {NavBar, InputItem, TextareaItem, Button} from 'antd-mobile';
 import AvatarSelector from '../component/avatarselector/avatar-selector';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom'
@@ -43,8 +43,8 @@ class BossInfo extends React.Component {
                 {redirect && redirect !== path ? <Redirect to={this.props.redirectTo}/> : null}
                 <NavBar
                     mode="dark"
-                    icon={<Icon type="left"/>}
-                    onLeftClick={() => console.log('onLeftClick')}
+                    // icon={<Icon type="left"/>}
+                    // onLeftClick={() => console.log('onLeftClick')}
                 >Boss完善信息页面</NavBar>
                 <AvatarSelector
                     selectAvatar={this.selectAvatar}

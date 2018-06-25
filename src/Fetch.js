@@ -1,4 +1,4 @@
-export function asyncRequest(params) {
+export default function asyncRequest(params) {
     const ApiUrl = 'http://localhost:9093/';
     let url = ApiUrl + params.url;
 

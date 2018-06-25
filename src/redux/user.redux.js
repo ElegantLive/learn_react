@@ -19,13 +19,14 @@ export function user(state = initState, action) {
         case LOAD_DATA:
             return {...state, ...action.payload};
         case ERROR_MSG:
-            return {...state, isAuth: false, msg: action.msg};
+            return {...state, msg: action.msg};
         default:
             return state;
     }
 }
 
-function authSuccess(data) {
+function authSuccess(obj) {
+    const {pwd, ...data} = obj;
     return {type: AUTH_SUCCESS, payload: data}
 }
 
@@ -39,7 +40,7 @@ export function userRegister({user, pwd, repeatPwd, type}) {
     if (pwd !== repeatPwd) return errorMsg('两次输入密码不一致');
 
     return dispatch => {
-        axios.post('/user/register', {user, pwd, type})
+        axios.post('user/register', {user, pwd, type})
             .then(res => {
                 if (res.status === 200 && res.data.code === 0) {
                     dispatch(authSuccess(res.data.data))
@@ -54,7 +55,7 @@ export function userLogin({user, pwd}) {
     if (!user || !pwd) return errorMsg('用户名密码必须输入');
 
     return dispatch => {
-        axios.post('/user/login', {user, pwd})
+        axios.post('user/login', {user, pwd})
             .then(res => {
                 if (res.status === 200 && res.data.code === 0) {
                     dispatch(authSuccess(res.data.data))
@@ -66,8 +67,9 @@ export function userLogin({user, pwd}) {
 }
 
 export function update(data) {
+    // if (!data.avatar) return errorMsg('请选择自己的头像');
     return dispatch => {
-        axios.post('/user/update', data)
+        axios.post('user/update', data)
             .then(res => {
                 if (res.status === 200 && res.data.code === 0) {
                     dispatch(authSuccess(res.data.data))

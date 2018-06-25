@@ -1,11 +1,17 @@
 import React from 'react';
 import {Grid,List} from 'antd-mobile';
+import PropType from "prop-types";
 
 class AvatarSelector extends React.Component{
     constructor(props) {
         super(props);
         this.state={}
     }
+
+    static propTypes = {
+        selectAvatar:PropType.func.isRequired
+    };
+
     render(){
         const avatarList = 'boy,girl,man,woman,bull,chick,crab,hedgehog,hippopotamus,koala,lemur,pig,tiger,whale,zebra'
             .split(',')

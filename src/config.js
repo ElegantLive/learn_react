@@ -2,7 +2,7 @@ import axios from 'axios';
 import {Toast} from 'antd-mobile';
 
 axios.default({
-    baseURL: 'http://localhost:9093',
+    baseURL: 'http://localhost:9093/',
     timeout: 5000
 });
 
