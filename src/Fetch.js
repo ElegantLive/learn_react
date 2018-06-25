@@ -1,4 +1,6 @@
-export default function asyncRequest(params) {
+import {Toast} from 'antd-mobile';
+
+export default function asyncRequest(params,sCallBack = false,eCallBack = false) {
     const ApiUrl = 'http://localhost:9093/';
     let url = ApiUrl + params.url;
 
@@ -37,7 +39,8 @@ export default function asyncRequest(params) {
         })
     }
 
-    console.log(request);
+    Toast.loading('加载中', 0);
+
     fetch(request)
         .then(_checkStatus)
         .then((response) => response.json())
@@ -46,21 +49,28 @@ export default function asyncRequest(params) {
             if(responseData.error_code === 10003) {
                 console.log('请登陆！-跳转登陆页面');
             }
-            // resolve(responseData);
         })
         .catch((err) => {
-            console.log('error:', url, err);
-            // reject(err);
+            if(!eCallBack) {
+                console.log('err:', err);
+                throw err;
+            }
+
+
         })
 }
 
 function _checkStatus(response) {
-    console.log(response);
-    if (response.status >= 200 && response.status < 300) {
+    setTimeout(()=>{
+        Toast.hide()
+    },5000);
+    if (response.status === 200) {
+        console.log(response);
         return response;
     } else {
         let error = new Error(response.statusText);
         error.response = response;
+        console.log('err:', error);
         throw error;
     }
 }

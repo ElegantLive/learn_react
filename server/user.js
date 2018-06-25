@@ -22,7 +22,7 @@ Router.get('/info', function (req, res) {
     });
 });
 
-Router.get('list', function (req, res) {
+Router.get('/list', function (req, res) {
     const query = req.query;
     User.find(query, function (err, doc) {
         return res.json({code:0,data:doc});
@@ -32,7 +32,7 @@ Router.get('list', function (req, res) {
 /**
  * 清空数据
  */
-Router.get('deleteAll', function (req, res) {
+Router.get('/deleteAll', function (req, res) {
     User.remove({}, function (err, doc) {
         return res.json(doc);
     })
@@ -41,15 +41,15 @@ Router.get('deleteAll', function (req, res) {
 /**
  * 用户注册
  */
-Router.post('register', function (req, res) {
+Router.post('/register', function (req, res) {
     const {user, pwd, type} = req.body;
     User.findOne({user: user}, function (err, doc) {
         if (doc) {
-            return res.json({code: 1, msg: '用户名重复了'})
+            // return res.json({code: 1, msg: '用户名重复了'})
         }
     });
 
-    User.create({user, pwd: preparePwd(pwd), type}, function (err, doc) {
+    User.create({user, pwd: preparePwd(pwd), type},_filter, function (err, doc) {
         if (err) {
             return res.json({code: 1, msg: '注册出错', data: doc})
         }
@@ -68,7 +68,7 @@ Router.post('register', function (req, res) {
     // })
 });
 
-Router.post('login', function (req, res) {
+Router.post('/login', function (req, res) {
     const {user, pwd} = req.body;
     User.findOne({user, pwd: preparePwd(pwd)}, _filter, function (err, doc) {
         if (doc) {
@@ -80,7 +80,7 @@ Router.post('login', function (req, res) {
     });
 });
 
-Router.post('update', function (req, res) {
+Router.post('/update', function (req, res) {
     const user_id = req.cookies.user_id;
 
     if (!user_id) {

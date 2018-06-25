@@ -12,6 +12,7 @@ axios.interceptors.request.use(function (config) {
     config.headers['Content-Type'] = 'application/json';
 
     Toast.loading('加载中', 0);
+    Toast.hide();
 
     return config;
 });

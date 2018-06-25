@@ -3,6 +3,7 @@ import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import {loadData} from '../../redux/user.redux';
 import {connect} from 'react-redux';
+import asyncRequest from '../../Fetch';
 
 @withRouter
 @connect(
@@ -27,6 +28,11 @@ class AuthRoute extends React.Component {
             } else {
                 this.props.history.push('/login')
             }
+        });
+
+        asyncRequest({
+            url:'user/list',
+            data:{type:'boss'}
         })
     }
 
