@@ -1,7 +1,7 @@
 import {Toast} from 'antd-mobile';
 
 export default function asyncRequest(params,sCallBack = false,eCallBack = false) {
-    const ApiUrl = 'http://localhost:9093/';
+    const ApiUrl = 'http://www.mi.com/v1/';
     let url = ApiUrl + params.url;
 
     let headers_obj = {
@@ -45,32 +45,30 @@ export default function asyncRequest(params,sCallBack = false,eCallBack = false)
         .then(_checkStatus)
         .then((response) => response.json())
         .then((responseData) => {
+            Toast.hide();
             console.log('res:', url, responseData);
             if(responseData.error_code === 10003) {
                 console.log('请登陆！-跳转登陆页面');
             }
         })
         .catch((err) => {
+            Toast.hide();
             if(!eCallBack) {
-                console.log('err:', err);
                 throw err;
+            }else{
+                eCallBack && eCallBack()
             }
-
-
         })
 }
 
 function _checkStatus(response) {
-    setTimeout(()=>{
-        Toast.hide()
-    },5000);
     if (response.status === 200) {
         console.log(response);
         return response;
     } else {
         let error = new Error(response.statusText);
         error.response = response;
-        console.log('err:', error);
+        console.log('error:', error);
         throw error;
     }
 }

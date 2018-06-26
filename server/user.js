@@ -9,11 +9,12 @@ const _filter = {'pwd': 0, '__v': 0};
  * 校验登陆状态
  */
 Router.get('/info', function (req, res) {
-    const {user_id} = req.cookies;
-    if (!user_id) {
-        return res.json({code: 1})
-    }
-    User.findOne({_id: user_id}, _filter, function (err, doc) {
+    // const {user_id} = req.cookies;
+    // if (!user_id) {
+    //     return res.json({code: 1})
+    // }
+    const {user_id} = req.query;
+    User.findOne({_id:user_id}, _filter, function (err, doc) {
         if (doc) {
             return res.json({code: 0, data: doc})
         } else {
@@ -23,8 +24,8 @@ Router.get('/info', function (req, res) {
 });
 
 Router.get('/list', function (req, res) {
-    const query = req.query;
-    User.find(query, function (err, doc) {
+    const {type} = req.query;
+    User.find({type}, function (err, doc) {
         return res.json({code:0,data:doc});
     })
 });
@@ -43,9 +44,9 @@ Router.get('/deleteAll', function (req, res) {
  */
 Router.post('/register', function (req, res) {
     const {user, pwd, type} = req.body;
-    User.findOne({user: user}, function (err, doc) {
+    User.findOne({user}, function (err, doc) {
         if (doc) {
-            // return res.json({code: 1, msg: '用户名重复了'})
+            return res.json({code: 1, msg: '用户名重复了'})
         }
     });
 
@@ -81,7 +82,7 @@ Router.post('/login', function (req, res) {
 });
 
 Router.post('/update', function (req, res) {
-    const user_id = req.cookies.user_id;
+    const user_id = req.query.user_id;
 
     if (!user_id) {
         return res.json({code: 1});

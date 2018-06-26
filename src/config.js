@@ -1,10 +1,9 @@
 import axios from 'axios';
 import {Toast} from 'antd-mobile';
 
-axios.default({
-    baseURL: 'http://localhost:9093/',
-    timeout: 5000
-});
+axios.defaults.baseURL = 'http://localhost:9093';
+// axios.defaults.proxy = 'http://localhost:9093';
+axios.defaults.timeout = 5000;
 
 axios.interceptors.request.use(function (config) {
     config.data = JSON.stringify(config.data);
@@ -12,7 +11,6 @@ axios.interceptors.request.use(function (config) {
     config.headers['Content-Type'] = 'application/json';
 
     Toast.loading('加载中', 0);
-    Toast.hide();
 
     return config;
 });

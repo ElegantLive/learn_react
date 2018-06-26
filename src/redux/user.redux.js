@@ -43,6 +43,7 @@ export function userRegister({user, pwd, repeatPwd, type}) {
         axios.post('user/register', {user, pwd, type})
             .then(res => {
                 if (res.status === 200 && res.data.code === 0) {
+                    localStorage.setItem('user_id',res.data.data._id);
                     dispatch(authSuccess(res.data.data))
                 } else {
                     dispatch(errorMsg(res.data.msg))
@@ -58,6 +59,7 @@ export function userLogin({user, pwd}) {
         axios.post('user/login', {user, pwd})
             .then(res => {
                 if (res.status === 200 && res.data.code === 0) {
+                    localStorage.setItem('user_id',res.data.data._id);
                     dispatch(authSuccess(res.data.data))
                 } else {
                     dispatch(errorMsg(res.data.msg))
@@ -68,6 +70,8 @@ export function userLogin({user, pwd}) {
 
 export function update(data) {
     // if (!data.avatar) return errorMsg('请选择自己的头像');
+    data.user_id = localStorage.getItem('user_id');
+
     return dispatch => {
         axios.post('user/update', data)
             .then(res => {

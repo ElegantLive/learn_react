@@ -3,7 +3,7 @@ import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import {loadData} from '../../redux/user.redux';
 import {connect} from 'react-redux';
-import asyncRequest from '../../Fetch';
+// import asyncRequest from '../../Fetch';
 
 @withRouter
 @connect(
@@ -18,7 +18,8 @@ class AuthRoute extends React.Component {
         if (publicList.indexOf(pathname) > -1) {
             return null;
         }
-        axios.get('user/info').then(res => {
+        const user_id = localStorage.getItem('user_id');
+        axios.get('user/info',{params:{user_id:user_id}}).then(res => {
             if (res.status === 200) {
                 if (res.data.code === 0) {
                     this.props.loadData(res.data.data);
@@ -30,10 +31,9 @@ class AuthRoute extends React.Component {
             }
         });
 
-        asyncRequest({
-            url:'user/list',
-            data:{type:'boss'}
-        })
+        // asyncRequest({
+        //     url:'send_code',
+        // })
     }
 
     render() {
