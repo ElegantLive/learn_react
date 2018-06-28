@@ -14,7 +14,7 @@ Router.get('/info', function (req, res) {
     //     return res.json({code: 1})
     // }
     const {user_id} = req.query;
-    User.findOne({_id:user_id}, _filter, function (err, doc) {
+    User.findOne({_id: user_id}, _filter, function (err, doc) {
         if (doc) {
             return res.json({code: 0, data: doc})
         } else {
@@ -24,9 +24,9 @@ Router.get('/info', function (req, res) {
 });
 
 Router.get('/list', function (req, res) {
-    const {type} = req.query;
-    User.find({type}, function (err, doc) {
-        return res.json({code:0,data:doc});
+    const _search = (req.query) ? req.query: {};
+    User.find(_search, function (err, doc) {
+        return res.json({code: 0, data: doc});
     })
 });
 
@@ -50,11 +50,10 @@ Router.post('/register', function (req, res) {
         }
     });
 
-    User.create({user, pwd: preparePwd(pwd), type},_filter, function (err, doc) {
+    User.create({user, pwd: preparePwd(pwd), type}, function (err, doc) {
         if (err) {
             return res.json({code: 1, msg: '注册出错', data: doc})
         }
-        res.cookie('user_id', doc._id);
         return res.json({code: 0, data: doc})
     })
 
@@ -82,7 +81,7 @@ Router.post('/login', function (req, res) {
 });
 
 Router.post('/update', function (req, res) {
-    const user_id = req.query.user_id;
+    const user_id = req.body.user_id;
 
     if (!user_id) {
         return res.json({code: 1});
@@ -94,7 +93,7 @@ Router.post('/update', function (req, res) {
                 user: d.user,
                 type: d.type,
             }, req.body);
-            return res.json({code: 0,data:data})
+            return res.json({code: 0, data: data})
         }
         return res.json({code: 1, msg: '更新失败'})
     })
