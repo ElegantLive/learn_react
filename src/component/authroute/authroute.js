@@ -19,6 +19,7 @@ class AuthRoute extends React.Component {
             return null;
         }
         const user_id = localStorage.getItem('user_id');
+        if (!user_id) this.props.history.push('/login');
         axios.get('user/info',{params:{user_id:user_id}}).then(res => {
             if (res.status === 200) {
                 if (res.data.code === 0) {
