@@ -5,47 +5,46 @@ import {userLogin} from '../redux/user.redux';
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux';
 import '../index.css';
+import Form from '../component/form/form';
 
 @connect(
     state => state.user,
     {userLogin}
 )
-
+@Form
 class Login extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            'user': '',
-            'pwd': ''
-        };
         this.handleLogin = this.handleLogin.bind(this);
         this.register = this.register.bind(this);
     }
 
-    _handleChange(key, value) {
-        this.setState({
-            [key]: value
-        })
+    componentDidMount()
+    {
+        this.props._handleChange('redirectTo',null)
     }
 
     handleLogin(){
-        this.props.userLogin(this.state);
+        this.props.userLogin(this.props.state);
     }
 
     register(){
         this.props.history.push('/register');
     }
     render(){
+        const redirect = this.props.redirectTo;
+        const ignorePath = ['/login','/register'];
+        const path = ignorePath.find(v => v === redirect);
         return (
             <div>
-                {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
+                {(redirect&&!path) ? <Redirect to={redirect} /> : null}
                 <Logo/>
                 <WingBlank>
                     <List>
                         {this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : null}
-                        <InputItem onChange={v => this._handleChange('user', v)}>用户</InputItem>
+                        <InputItem onChange={v => this.props._handleChange('user', v)}>用户</InputItem>
                         <WhiteSpace/>
-                        <InputItem type='password' onChange={v => this._handleChange('pwd', v)}>密码</InputItem>
+                        <InputItem type='password' onChange={v => this.props._handleChange('pwd', v)}>密码</InputItem>
                     </List>
                     <Button onClick={this.handleLogin} type='primary'>登陆</Button>
                     <WhiteSpace/>
