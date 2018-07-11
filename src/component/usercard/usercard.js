@@ -9,8 +9,7 @@ class UserCard extends React.Component {
         userlist: PropTypes.array.isRequired
     };
 
-    handleClick(v)
-    {
+    handleClick(v) {
         this.props.history.push(`/chat/${v._id}`)
     }
 
@@ -22,7 +21,7 @@ class UserCard extends React.Component {
                 {this.props.userlist.map(v => (
                     v.avatar ? (<Card
                             key={v._id}
-                            onClick={()=>this.handleClick(v)}
+                            onClick={() => this.handleClick(v)}
                         >
                             <Header
                                 title={v.user}
@@ -31,9 +30,9 @@ class UserCard extends React.Component {
                             >
                             </Header>
                             <Body>
-                                {v.type==='boss'?(<div>公司：{v.company}</div>):null}
-                                {v.desc.split('\n').map(v => (<div key={v}>{v}</div>))}
-                                {v.type==='boss'?(<div>薪资：{v.money}</div>):null}
+                            {v.type === 'boss' ? (<div>公司：{v.company}</div>) : null}
+                            {v.desc.split('\n').map(v => (<div key={v}>{v}</div>))}
+                            {v.type === 'boss' ? (<div>薪资：{v.money}</div>) : null}
                             </Body>
                         </Card>
                     ) : null

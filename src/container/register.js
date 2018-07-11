@@ -19,9 +19,8 @@ class Register extends React.Component {
         this.handleRegister = this.handleRegister.bind(this);
     }
 
-    componentDidMount()
-    {
-        this.props._handleChange('type','genius');
+    componentDidMount() {
+        this.props._handleChange('type', 'genius');
     }
 
     handleRegister() {
@@ -35,11 +34,11 @@ class Register extends React.Component {
     render() {
         const RadioItem = Radio.RadioItem;
         const redirect = this.props.redirectTo;
-        const ignorePath = ['/login','/register'];
+        const ignorePath = ['/login', '/register'];
         const path = ignorePath.find(v => v === redirect);
         return (
             <div>
-                {(redirect&&!path) ? <Redirect to={redirect} /> : null}
+                {(redirect && !path) ? <Redirect to={redirect}/> : null}
                 <Logo/>
                 <WingBlank>
                     <List>

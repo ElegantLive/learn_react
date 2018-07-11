@@ -19,7 +19,7 @@ class GeniusInfo extends React.Component {
     }
 
     selectAvatar(e) {
-        this.props._handleChange('avatar',e)
+        this.props._handleChange('avatar', e)
     }
 
     render() {

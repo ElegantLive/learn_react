@@ -15,12 +15,12 @@ const corsOptions = {
 };
 
 io.on('connection', function (socket) {
-    socket.on('sendmsg',function (data) {
-        const {from,to,msg} = data;
-        const chat_id = [from,to].sort().join('_');
-        if(msg) {
-            Chat.create({chat_id,from,to,content:msg},function (err,doc) {
-                io.emit('recvmsg',Object.assign({},doc._doc))
+    socket.on('sendmsg', function (data) {
+        const {from, to, msg} = data;
+        const chat_id = [from, to].sort().join('_');
+        if (msg) {
+            Chat.create({chat_id, from, to, content: msg}, function (err, doc) {
+                io.emit('recvmsg', Object.assign({}, doc._doc))
             })
         }
     })

@@ -25,20 +25,20 @@ const store = createStore(reducers, compose(
 
 ReactDom.render(
     (<Provider store={store}>
-        <BrowserRouter>
-            <div>
-                <AuthRoute />
-                <Switch>
-                    <Route path='/bossinfo' component={BossInfo}/>
-                    <Route path='/geniusinfo' component={GeniusInfo}/>
-                    <Route path='/login' component={Login}/>
-                    <Route path='/register' component={Register}/>
-                    <Route path='/chat/:user' component={Chat}/>
-                    <Route component={Dashboard}/>
-                </Switch>
-            </div>
-        </BrowserRouter>
-    </Provider>
-),
-document.getElementById('root')
+            <BrowserRouter>
+                <div>
+                    <AuthRoute/>
+                    <Switch>
+                        <Route path='/bossinfo' component={BossInfo}/>
+                        <Route path='/geniusinfo' component={GeniusInfo}/>
+                        <Route path='/login' component={Login}/>
+                        <Route path='/register' component={Register}/>
+                        <Route path='/chat/:user' component={Chat}/>
+                        <Route component={Dashboard}/>
+                    </Switch>
+                </div>
+            </BrowserRouter>
+        </Provider>
+    ),
+    document.getElementById('root')
 );

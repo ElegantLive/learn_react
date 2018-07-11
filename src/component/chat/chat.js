@@ -18,11 +18,12 @@ class Chat extends React.Component {
         };
     }
 
-    fixCarousel(){
+    fixCarousel() {
         setTimeout(function () {
-           window.dispatchEvent(new Event('resize'))
-        },0)
+            window.dispatchEvent(new Event('resize'))
+        }, 0)
     }
+
     handleSubmit() {
         const from = this.props.user._id;
         const to = this.props.match.params.user;
@@ -71,11 +72,15 @@ class Chat extends React.Component {
                         (<List key={v._id}>
                             <Item
                                 thumb={avatar}
+                                multipleLine={true}
+                                wrap={true}
                             >{v.content}</Item>
                         </List>) :
                         (<List key={v._id}>
                             <Item
                                 className='chat-me'
+                                multipleLine={true}
+                                wrap={true}
                                 extra={<img src={avatar} alt={user[user_id].name}/>}
                             >{v.content}</Item>
                         </List>);
@@ -92,9 +97,9 @@ class Chat extends React.Component {
                                 <div>
                                     <span
                                         style={{marginRight: 15}}
-                                        onClick={()=>{
+                                        onClick={() => {
                                             this.setState({
-                                                showEmoji:!this.state.showEmoji
+                                                showEmoji: !this.state.showEmoji
                                             });
                                             this.fixCarousel()
                                         }}
@@ -109,9 +114,9 @@ class Chat extends React.Component {
                         columnNum={9}
                         carouselMaxRow={4}
                         isCarousel={true}
-                        onClick={el=>{
+                        onClick={el => {
                             this.setState({
-                                text:this.state.text+el.text
+                                text: this.state.text + el.text
                             })
                         }}
                     /> : null}

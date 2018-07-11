@@ -1,6 +1,6 @@
 import React from 'react';
 import Logo from '../component/logo/logo';
-import {List,InputItem,WhiteSpace,WingBlank,Button} from 'antd-mobile'
+import {List, InputItem, WhiteSpace, WingBlank, Button} from 'antd-mobile'
 import {userLogin} from '../redux/user';
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux';
@@ -12,32 +12,32 @@ import Form from '../component/form/form';
     {userLogin}
 )
 @Form
-class Login extends React.Component{
-    constructor(props){
+class Login extends React.Component {
+    constructor(props) {
         super(props);
         this.handleLogin = this.handleLogin.bind(this);
         this.register = this.register.bind(this);
     }
 
-    componentDidMount()
-    {
-        this.props._handleChange('redirectTo',null)
+    componentDidMount() {
+        this.props._handleChange('redirectTo', null)
     }
 
-    handleLogin(){
+    handleLogin() {
         this.props.userLogin(this.props.state);
     }
 
-    register(){
+    register() {
         this.props.history.push('/register');
     }
-    render(){
+
+    render() {
         const redirect = this.props.redirectTo;
-        const ignorePath = ['/login','/register'];
+        const ignorePath = ['/login', '/register'];
         const path = ignorePath.find(v => v === redirect);
         return (
             <div>
-                {(redirect&&!path) ? <Redirect to={redirect} /> : null}
+                {(redirect && !path) ? <Redirect to={redirect}/> : null}
                 <Logo/>
                 <WingBlank>
                     <List>
