@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../component/logo/logo';
 import {List,InputItem,WhiteSpace,WingBlank,Button} from 'antd-mobile'
-import {userLogin} from '../redux/user.redux';
+import {userLogin} from '../redux/user';
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux';
 import '../index.css';

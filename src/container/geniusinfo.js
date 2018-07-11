@@ -3,7 +3,7 @@ import {NavBar, InputItem, TextareaItem, Button} from 'antd-mobile';
 import AvatarSelector from '../component/avatarselector/avatar-selector';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom'
-import {update} from '../redux/user.redux';
+import {update} from '../redux/user';
 import Form from '../component/form/form';
 
 @connect(

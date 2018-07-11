@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Result, List, WhiteSpace, Modal} from 'antd-mobile';
-import {logoutSubmit} from '../../redux/user.redux';
+import {logoutSubmit} from '../../redux/user';
 import {Redirect} from 'react-router-dom'
 
 @connect(

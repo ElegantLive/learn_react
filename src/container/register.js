@@ -3,7 +3,7 @@ import Logo from '../component/logo/logo';
 import {List, InputItem, WhiteSpace, WingBlank, Button, Radio} from 'antd-mobile';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
-import {userRegister} from '../redux/user.redux';
+import {userRegister} from '../redux/user';
 import Form from '../component/form/form';
 
 @connect(

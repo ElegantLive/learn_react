@@ -3,6 +3,7 @@ const utility = require('utility');
 const Router = express.Router();
 const models = require('./model');
 const User = models.getModel('user');
+const Chat = models.getModel('chat');
 const _filter = {'pwd': 0, '__v': 0};
 
 /**
@@ -24,7 +25,7 @@ Router.get('/info', function (req, res) {
 });
 
 Router.get('/list', function (req, res) {
-    const _search = (req.query) ? req.query: {};
+    const _search = (req.query) ? req.query : {};
     User.find(_search, function (err, doc) {
         return res.json({code: 0, data: doc});
     })
@@ -98,6 +99,32 @@ Router.post('/update', function (req, res) {
         return res.json({code: 1, msg: '更新失败'})
     })
 });
+
+Router.get('/getmsglist', function (req, res) {
+    const from_id = req.query.user_id;
+    if (!from_id) {
+        return res.json({code: 1});
+    }
+    User.find({}, function (err, userdoc) {
+        if (!err) {
+            let user = {};
+            userdoc.forEach(v => {
+                user[v._id] = {name: v.user, avatar: v.avatar}
+            });
+            Chat.find({'$or': [{from: from_id}, {to: from_id}]}, function (err, doc) {
+                if (!err) {
+                    return res.json({code: 0, data: doc, user: user})
+                }
+            })
+        }
+    });
+});
+
+// Router.get('/clearchat',function (req,res) {
+//     Chat.remove({}, function (err, doc) {
+//         return res.json(doc);
+//     })
+// });
 
 function preparePwd(pwd) {
     const saly = 'this-a_react!/for@caixian$of?7517520~';
