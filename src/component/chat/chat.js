@@ -1,12 +1,12 @@
 import React from 'react';
 import {List, InputItem, NavBar, Icon, Grid} from 'antd-mobile';
 import {connect} from 'react-redux';
-import {getMsgList, sendMsg, recvMsg} from "../../redux/chat";
+import {getMsgList, sendMsg, recvMsg,readMsg} from "../../redux/chat";
 import {getChatId} from "../../util";
 
 @connect(
     state => state,
-    {getMsgList, sendMsg, recvMsg}
+    {getMsgList, sendMsg, recvMsg,readMsg}
 )
 class Chat extends React.Component {
     constructor(props) {
@@ -30,6 +30,15 @@ class Chat extends React.Component {
         const msg = this.state.text;
         this.props.sendMsg({from, to, msg});
         this.setState({text: null})
+        this.setState({
+            showEmoji: false
+        });
+    }
+
+    componentWillUnmount()
+    {
+        const to = this.props.match.params.user;
+        this.props.readMsg(to);
     }
 
     componentDidMount() {
@@ -50,6 +59,8 @@ class Chat extends React.Component {
         const user_id = this.props.match.params.user;
         const Item = List.Item;
         const user = this.props.chat.user;
+
+        if(!user) return null;
 
         if (!user[user_id]) return null;
 

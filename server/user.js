@@ -34,11 +34,11 @@ Router.get('/list', function (req, res) {
 /**
  * 清空数据
  */
-Router.get('/deleteAll', function (req, res) {
-    User.remove({}, function (err, doc) {
-        return res.json(doc);
-    })
-});
+// Router.get('/deleteAll', function (req, res) {
+//     User.remove({}, function (err, doc) {
+//         return res.json(doc);
+//     })
+// });
 
 /**
  * 用户注册
@@ -120,11 +120,27 @@ Router.get('/getmsglist', function (req, res) {
     });
 });
 
-// Router.get('/clearchat',function (req,res) {
-//     Chat.remove({}, function (err, doc) {
-//         return res.json(doc);
-//     })
-// });
+Router.get('/chat/clear', function (req, res) {
+    Chat.remove({}, function (err, doc) {
+        return res.json(doc);
+    })
+});
+
+Router.post('/readmsg', function (req, res) {
+    const {from, to} = req.body;
+
+    Chat.update(
+        {from, to, is_read: false},
+        {'$set': {is_read: true}},
+        {'multi': true},
+        function (err, doc) {
+            if (!err) {
+                return res.json({code: 0, num: doc.nModified})
+            }
+            return res.json({code: 1})
+        });
+
+});
 
 function preparePwd(pwd) {
     const saly = 'this-a_react!/for@caixian$of?7517520~';

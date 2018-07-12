@@ -15,31 +15,38 @@ class Msg extends React.Component {
             msgGroup[v.chat_id].push(v);
         });
 
-        const chatList = Object.values(msgGroup);
+        const chatList = Object.values(msgGroup).sort((a, b) => {
+            const a_last = a.length - 1;
+            const b_last = b.length - 1;
+            return b[b_last].create_time - a[a_last].create_time
+        });
         const Item = List.Item;
         const Brief = Item.Brief;
         const user_id = this.props.user._id;
         return (
             <div>
-                <List>
-                    {chatList.map(v => {
-                            const last = v.length - 1;
-                            const targetId = (v[last].from === user_id) ? v[last].to : v[last].from;
-                            const unreadNum = v.filter(n => (!n.read && n.to === user_id)).length;
-                            const targetUser = this.props.chat.user[targetId];
-                            return (
+                {chatList.map(v => {
+                        const last = v.length - 1;
+                        const targetId = (v[last].from === user_id) ? v[last].to : v[last].from;
+                        const unreadNum = v.filter(n => (!n.is_read && n.to === user_id)).length;
+                        const targetUser = this.props.chat.user[targetId];
+                        return (
+                            <List key={v[0]._id}>
                                 <Item
                                     extra={<Badge text={unreadNum}/>}
                                     thumb={require(`../img/${targetUser.avatar}.png`)}
-                                    key={v[0]._id}
+                                    arrow='horizontal'
+                                    onClick={()=>{
+                                        this.props.history.push(`/chat/${targetId}`)
+                                    }}
                                 >
                                     {v[last].content}
                                     <Brief>{targetUser.name}</Brief>
                                 </Item>
-                            )
-                        }
-                    )}
-                </List>
+                            </List>
+                        )
+                    }
+                )}
             </div>
         )
     }

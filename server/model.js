@@ -21,7 +21,7 @@ const models = {
         'from': {'type': String, 'require': true},
         'to': {'type': String, 'require': true},
         'content': {'type': String, 'require': true, 'default': null},
-        'create_time': {'type': Number, 'require': true, 'default': Date.now()},
+        'create_time': {'type': Number, 'require': true, 'default': Date.now},
         'is_read': {'type': Boolean, 'default': false}
     }
 };
