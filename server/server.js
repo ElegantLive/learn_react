@@ -9,6 +9,7 @@ const app = express();
 
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+const path = require('path');
 
 const corsOptions = {
     credentials: true,
@@ -30,6 +31,13 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use('/user', userRoute);
+app.use(function (req,res,next) {
+    if(req.url.startsWith('/user/') || req.url.startsWith('/static/')) {
+        return next();
+    }
+    return res.sendFile(path.resolve('build/index.html'));
+});
+app.use('/',express.static(path.resolve('build')));
 server.listen(9093, function () {
     console.log('node app start at port 9093')
 });
