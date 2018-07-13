@@ -17,7 +17,7 @@ const store = createStore(reducers, compose(
     reduxDectools ? reduxDectools() : f => f
 ));
 
-ReactDom.render(
+ReactDom.hydrate(
     (
         <Provider store={store}>
             <BrowserRouter>
