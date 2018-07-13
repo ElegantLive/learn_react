@@ -63,11 +63,10 @@ class Dashboard extends React.Component {
 
         if (!navItem) return null;
 
-        const navTitle = (navItem) ? navItem.title : null;
         return (
             <div>
                 <NavBar className='fixd-header' mode='dark'>
-                    {navTitle}
+                    {navItem.title}
                 </NavBar>
                 <div style={{marginTop: 45}}>
                     <QueueAnim type='bottom'>
@@ -79,6 +78,5 @@ class Dashboard extends React.Component {
         )
     }
 }
-
 
 export default Dashboard;

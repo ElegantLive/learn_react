@@ -22,7 +22,8 @@ import reducers from '../src/reducer';
 import staticPath from '../build/asset-manifest';
 
 assethook({
-    extensions: ['png']
+    extensions:['png'],
+    limit: 9000
 });
 
 const Chat = models.getModel('chat');
