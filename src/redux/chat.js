@@ -58,15 +58,18 @@ export function recvMsg() {
     }
 }
 
+/**
+ * async+await优化
+ * @param from
+ * @returns {Function}
+ */
 export function readMsg(from) {
     const user_id = localStorage.getItem('user_id');
-    return dispatch => {
-        axios.post('/user/readmsg', {from: from, to: user_id})
-            .then(res => {
-                if (res.status === 200 && res.data.code === 0) {
-                    dispatch(msgRead({from, user_id, num: res.data.num}))
-                }
-            })
+    return async dispatch => {
+        const res = await axios.post('/user/readmsg', {from: from, to: user_id});
+        if (res.status === 200 && res.data.code === 0) {
+            dispatch(msgRead({from, user_id, num: res.data.num}))
+        }
     }
 }
 

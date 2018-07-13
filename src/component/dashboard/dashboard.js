@@ -1,13 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {NavBar} from 'antd-mobile';
-import {Switch, Route} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import NavLinkBar from "../navlink/navlink";
 import Boss from '../boss/boss';
 import Genius from '../genius/genius';
 import User from '../user/user';
 import {getMsgList, recvMsg} from "../../redux/chat";
 import Msg from '../msg/msg'
+import QueueAnim from 'rc-queue-anim';
 
 @connect(
     state => state,
@@ -60,6 +61,8 @@ class Dashboard extends React.Component {
 
         const navItem = navList.find(v => v.path === pathname);
 
+        if (!navItem) return null;
+
         const navTitle = (navItem) ? navItem.title : null;
         return (
             <div>
@@ -67,11 +70,9 @@ class Dashboard extends React.Component {
                     {navTitle}
                 </NavBar>
                 <div style={{marginTop: 45}}>
-                    <Switch>
-                        {navList.map(v => (
-                            <Route key={v.path} path={v.path} component={v.component}/>
-                        ))}
-                    </Switch>
+                    <QueueAnim type='bottom'>
+                        <Route key={navItem.path} path={navItem.path} component={navItem.component}/>
+                    </QueueAnim>
                 </div>
                 <NavLinkBar className='am-tab-bar' data={navList}/>
             </div>

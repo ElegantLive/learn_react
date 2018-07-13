@@ -32,7 +32,6 @@ class NavLinkBar extends React.Component {
                                 this.props.history.push(v.path)
                             }}
                         >
-
                         </TabBar.Item>
                     ))}
                 </TabBar>

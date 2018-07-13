@@ -1,12 +1,13 @@
 import React from 'react';
 import {List, InputItem, NavBar, Icon, Grid} from 'antd-mobile';
 import {connect} from 'react-redux';
-import {getMsgList, sendMsg, recvMsg,readMsg} from "../../redux/chat";
+import {getMsgList, sendMsg, recvMsg, readMsg} from "../../redux/chat";
 import {getChatId} from "../../util";
+import QueueAnim from 'rc-queue-anim';
 
 @connect(
     state => state,
-    {getMsgList, sendMsg, recvMsg,readMsg}
+    {getMsgList, sendMsg, recvMsg, readMsg}
 )
 class Chat extends React.Component {
     constructor(props) {
@@ -29,14 +30,13 @@ class Chat extends React.Component {
         const to = this.props.match.params.user;
         const msg = this.state.text;
         this.props.sendMsg({from, to, msg});
-        this.setState({text: null})
         this.setState({
+            text: null,
             showEmoji: false
         });
     }
 
-    componentWillUnmount()
-    {
+    componentWillUnmount() {
         const to = this.props.match.params.user;
         this.props.readMsg(to);
     }
@@ -60,7 +60,7 @@ class Chat extends React.Component {
         const Item = List.Item;
         const user = this.props.chat.user;
 
-        if(!user) return null;
+        if (!user) return null;
 
         if (!user[user_id]) return null;
 
@@ -77,25 +77,31 @@ class Chat extends React.Component {
                 >
                     {user[user_id].name}
                 </NavBar>
-                {chatMsgs.map(v => {
-                    const avatar = require(`../img/${user[v.from].avatar}.png`);
-                    return (v.from === user_id) ?
-                        (<List key={v._id}>
-                            <Item
-                                thumb={avatar}
-                                multipleLine={true}
-                                wrap={true}
-                            >{v.content}</Item>
-                        </List>) :
-                        (<List key={v._id}>
-                            <Item
-                                className='chat-me'
-                                multipleLine={true}
-                                wrap={true}
-                                extra={<img src={avatar} alt={user[user_id].name}/>}
-                            >{v.content}</Item>
-                        </List>);
-                })}
+
+                <QueueAnim
+                    type='left'
+                    delay={100}
+                >
+                    {chatMsgs.map(v => {
+                        const avatar = require(`../img/${user[v.from].avatar}.png`);
+                        return (v.from === user_id) ?
+                            (<List key={v._id}>
+                                <Item
+                                    thumb={avatar}
+                                    multipleLine={true}
+                                    wrap={true}
+                                >{v.content}</Item>
+                            </List>) :
+                            (<List key={v._id}>
+                                <Item
+                                    className='chat-me'
+                                    multipleLine={true}
+                                    wrap={true}
+                                    extra={<img src={avatar} alt={user[user_id].name}/>}
+                                >{v.content}</Item>
+                            </List>);
+                    })}
+                </QueueAnim>
                 <div className='stick-footer'>
                     <List>
                         <InputItem
