@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const DB_URL = 'mongodb://localhost:27017/learn';
 mongoose.connect(DB_URL);
 mongoose.connection.on('connected', function () {

@@ -1,7 +1,7 @@
-const express = require('express');
-const utility = require('utility');
+import express from 'express';
+import models from './model';
+import utility from 'utility';
 const Router = express.Router();
-const models = require('./model');
 const User = models.getModel('user');
 const Chat = models.getModel('chat');
 const _filter = {'pwd': 0, '__v': 0};
@@ -120,11 +120,14 @@ Router.get('/getmsglist', function (req, res) {
     });
 });
 
-Router.get('/chat/clear', function (req, res) {
-    Chat.remove({}, function (err, doc) {
-        return res.json(doc);
-    })
-});
+/**
+ * 清空聊天数据
+ */
+// Router.get('/chat/clear', function (req, res) {
+//     Chat.remove({}, function (err, doc) {
+//         return res.json(doc);
+//     })
+// });
 
 Router.post('/readmsg', function (req, res) {
     const {from, to} = req.body;
