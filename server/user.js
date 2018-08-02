@@ -17,6 +17,7 @@ Router.get('/info', function (req, res) {
     const {user_id} = req.query;
     User.findOne({_id: user_id}, _filter, function (err, doc) {
         if (doc) {
+            // res.cookie('userToken', doc._id);
             return res.json({code: 0, data: doc})
         } else {
             return res.json({code: 1})
