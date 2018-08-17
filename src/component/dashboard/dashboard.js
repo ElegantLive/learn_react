@@ -28,19 +28,19 @@ class Dashboard extends React.Component {
         const user = this.props.user;
         const navList = [
             {
-                path: '/boss',
+                path: '/genius',
                 text: '牛人',
                 icon: 'boss',
                 title: '牛人列表',
-                component: Boss,
+                component: Genius,
                 hide: user.type === 'genius'
             },
             {
-                path: '/genius',
+                path: '/boss',
                 text: 'BOSS',
                 icon: 'job',
                 title: 'BOSS列表',
-                component: Genius,
+                component: Boss,
                 hide: user.type === 'boss'
             },
             {

@@ -11,7 +11,9 @@ import UserCard from '../usercard/usercard';
 class Boss extends React.Component {
 
     componentDidMount() {
-        if (this.props.userlist.length <= 0) this.props.getUserList('boss');
+        const userlist = this.props.userlist;
+
+        if (userlist.length <= 0 || userlist[0]['type'] !== 'boss') this.props.getUserList('boss');
     }
 
     render() {

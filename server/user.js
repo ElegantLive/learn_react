@@ -27,7 +27,7 @@ Router.get('/info', function (req, res) {
 
 Router.get('/list', function (req, res) {
     const _search = (req.query) ? req.query : {};
-    User.find(_search, function (err, doc) {
+    User.find(_search, _filter, function (err, doc) {
         return res.json({code: 0, data: doc});
     })
 });
