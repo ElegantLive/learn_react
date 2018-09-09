@@ -7,7 +7,7 @@ import Boss from '../boss/boss';
 import Genius from '../genius/genius';
 import User from '../user/user';
 import {getMsgList, recvMsg} from "../../redux/chat";
-import Msg from '../msg/msg'
+import Msg from '../msg/msg';
 import QueueAnim from 'rc-queue-anim';
 
 @connect(
