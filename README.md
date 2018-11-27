@@ -3,17 +3,17 @@
 
 ## Install
 * install dependencies
-### yarn
+### `yarn`
 * install nodemon
-### yarn add nodemon // with yarn
-### npm install nodemon // with npm
+### `yarn add nodemon` // with yarn
+### `npm install nodemon` // with npm
 * install mongodb,you can view [https://www.mongodb.com/download-center#community](https://www.mongodb.com/download-center#community) to install,or you can view [https://docs.mongodb.com/](https://docs.mongodb.com/) when you are in trouble.
 
 ## Bulid && Run
 Before you run this app, you need build it
-### yarn build
+### `yarn build`
 Then you can run
-### yarn server
+### `yarn server`
 Open [http://localhost:9091](http://localhost:9091) to view it in the browser.
 
 ## Dependencies && Points
