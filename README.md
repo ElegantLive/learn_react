@@ -7,7 +7,9 @@
 * install mongodb,you can view [https://www.mongodb.com/download-center#community](https://www.mongodb.com/download-center#community) to install,or you can view [https://docs.mongodb.com/](https://docs.mongodb.com/) when you are in trouble.
 
 ## Bulid && Run
-Before you run this app, you need build it `yarn build`,then you can run `yarn server`,Open [http://localhost:9091](http://localhost:9091) to view it in the browser.
+* before you run this app, you need build it `yarn build`
+* then you can run `yarn server`
+* open [http://localhost:9091](http://localhost:9091) to view it in the browser
 
 ## Dependencies && Points
 * Redux // to manage state
