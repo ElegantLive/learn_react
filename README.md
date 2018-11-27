@@ -2,7 +2,7 @@
 > this is an project with me for me to learn react,ES6,ES7,ES8 and more
 
 ## Install
-* install dependencies
+* install dependencies `yarn`
 ### `yarn`
 * install nodemon
 ### `yarn add nodemon` // with yarn
