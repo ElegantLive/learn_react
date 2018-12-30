@@ -7,6 +7,8 @@ import Register from "./container/register";
 import Dashboard from "./component/dashboard/dashboard";
 import GeniusInfo from "./container/geniusinfo";
 import Chat from "./component/chat/chat";
+import gql from "graphql-tag";
+import ApolloClient from 'apollo-boost';
 
 class App extends React.Component {
     constructor(props) {
@@ -14,6 +16,21 @@ class App extends React.Component {
         this.state = {
             _hasError: false
         }
+    }
+
+    componentDidMount() {
+        const client = new ApolloClient();
+        client.query({
+            query: gql`
+            {
+                hello
+            }
+            `
+        })
+        .then(result => console.log(result,'ok'))
+        .catch(err => {
+            console.log(err,'error')
+        });
     }
 
     componentDidCatch(err, info) {
@@ -26,7 +43,7 @@ class App extends React.Component {
     render() {
         return (this.state._hasError) ? (<h2>页面出错了,请稍后再试</h2>) : (
             <div>
-                <AuthRoute/>
+                <AuthRoute />
                 <Switch>
                     <Route path='/bossinfo' component={BossInfo}/>
                     <Route path='/geniusinfo' component={GeniusInfo}/>

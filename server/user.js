@@ -152,4 +152,4 @@ function preparePwd(pwd) {
     return utility.md5(utility.md5(pwd + saly));
 }
 
-module.exports = Router;
+export default Router;

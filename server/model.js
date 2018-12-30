@@ -1,7 +1,7 @@
 // const mongoose = require('mongoose');
 import mongoose from 'mongoose';
 const DB_URL = 'mongodb://localhost:27017/learn';
-mongoose.connect(DB_URL);
+mongoose.connect(DB_URL, { useNewUrlParser: true });
 mongoose.connection.on('connected', function () {
     console.log('mongoose connect success');
 });
@@ -34,5 +34,13 @@ for (let m in models) {
 module.exports = {
     getModel: function (name) {
         return mongoose.model(name);
-    }
+    },
+    allModel: function () {
+        const all = {};
+        mongoose.modelNames().map(v => {
+            all[v] = mongoose.model(v);
+            return v;
+        });
+        return all
+    },
 };

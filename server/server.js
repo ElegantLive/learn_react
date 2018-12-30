@@ -7,6 +7,7 @@ import cors from 'cors';
 import {Server} from 'http';
 import Socket from 'socket.io';
 import path from 'path';
+import { ApolloServer, gql } from 'apollo-server-express';
 
 import csshook from 'css-modules-require-hook/preset';
 import assethook from 'asset-require-hook';
@@ -21,6 +22,13 @@ import App from '../src/app';
 import reducers from '../src/reducer';
 import staticPath from '../build/asset-manifest';
 
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
+
+import fetch from 'node-fetch';
+
+global.fetch = fetch;
+
 assethook({
     extensions: ['png'],
     limit: 9000
@@ -28,6 +36,26 @@ assethook({
 
 const Chat = models.getModel('chat');
 const app = express();
+const PORT = 9091;
+
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`;
+
+// Provide resolver functions for your schema fields
+const resolvers = {
+  Query: {
+    hello: () => 'Hello world!',
+  },
+};
+
+const apolloServer = new ApolloServer({ typeDefs, resolvers });
+
+const apolloPath = `http://localhost:${PORT}${apolloServer.graphqlPath}`;
+
+apolloServer.applyMiddleware({ app });
 
 app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", '*');
@@ -77,6 +105,10 @@ app.use(function (req, res, next) {
         applyMiddleware(thunk)
     ));
 
+    const apolloClient = new ApolloClient({
+        uri: apolloPath
+    });
+
     // const context = {};
     // const markUp = renderToString(
     //     (<Provider store={store}>
@@ -123,14 +155,16 @@ app.use(function (req, res, next) {
     // );
 
     const markUpSteam = renderToNodeStream(
-        (<Provider store={store}>
-            <StaticRouter
-                location={req.url}
-                context={context}
-            >
-                <App/>
-            </StaticRouter>
-        </Provider>)
+        (<ApolloProvider client={apolloClient}>
+            <Provider store={store}>
+                <StaticRouter
+                    location={req.url}
+                    context={context}
+                >
+                    <App/>
+                </StaticRouter>
+            </Provider>
+        </ApolloProvider>)
     );
 
     markUpSteam.pipe(res, {end: false});
@@ -147,6 +181,7 @@ app.use(function (req, res, next) {
     // return res.send(pageHtml);
 });
 app.use('/', express.static(path.resolve('build')));
-server.listen(9091, function () {
-    console.log('node app start at port 9091')
+server.listen(PORT, function () {
+    console.log(`node app start at port ${PORT}`);
+    console.log(`🚀 Server ready at ${apolloPath}`)
 });
