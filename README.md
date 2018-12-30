@@ -1,5 +1,5 @@
 ## Description
-> this is an project with me for me to learn react,ES6,ES7,ES8 and more
+> this is an project for me to learn react,ES6,ES7,ES8 and more
 
 ## Install
 * install dependencies `yarn`
