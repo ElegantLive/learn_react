@@ -38,17 +38,50 @@ const Chat = models.getModel('chat');
 const app = express();
 const PORT = 9091;
 
+const user = [
+    {
+        title: 'name',
+        author: 'caixian'
+    },
+    {
+        title: 'exist',
+        author: 'qu'
+    }
+];
+
+const queryUser = (parent, args, context, info) => {
+    const { title, author } = args;
+
+    const res = user.filter((field) => {
+        if (title & author) return field === args;
+        
+        if (title) return field.title === title;
+
+        if (author) return field.author === author;
+
+        return field;
+    });
+
+    return res;
+    // return res.length === 1 ? res[0] : res;
+}
+
 const typeDefs = gql`
-  type Query {
-    hello: String
-  }
+    type User {
+        title: String
+        author: String
+    },
+    type Query {
+        user (title: String, author: String): [User],
+        name: [User],
+    }
 `;
 
 // Provide resolver functions for your schema fields
 const resolvers = {
-  Query: {
-    hello: () => 'Hello world!',
-  },
+    Query: {
+        user: queryUser,
+    }
 };
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
@@ -64,7 +97,7 @@ app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Credentials", "true"); //可以带cookies
     res.header("X-Powered-By", '3.2.1');
     if (req.method === 'OPTIONS') {
-        return res.json({code:0});
+        return res.json({ code: 0 });
     } else {
         next();
     }
@@ -72,10 +105,6 @@ app.all('*', function (req, res, next) {
 
 const server = Server(app);
 const io = Socket(server);
-
-const corsOptions = {
-    credentials: true,
-};
 
 io.on('connection', function (socket) {
     socket.on('sendmsg', function (data) {
@@ -88,6 +117,10 @@ io.on('connection', function (socket) {
         }
     })
 });
+
+const corsOptions = {
+    credentials: true,
+};
 
 app.use(cors(corsOptions));
 app.use(cookieParser());

@@ -23,11 +23,13 @@ class App extends React.Component {
         client.query({
             query: gql`
             {
-                hello
+                user(title: "name") {
+                    author
+                }
             }
             `
         })
-        .then(result => console.log(result,'ok'))
+        .then(result => console.log(result))
         .catch(err => {
             console.log(err,'error')
         });
